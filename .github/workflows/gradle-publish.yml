@@ -1,0 +1,62 @@
+name: Build and Publish Native App
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags like v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Use macos-latest for macOS apps or windows-latest for Windows apps.
+
+    steps:
+      # Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up JDK if needed (for Gradle-based apps)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21' # Update based on your project needs
+          distribution: 'temurin'
+          cache: 'gradle'
+      # Build the application
+      - name: Build application
+        run: |
+          ./gradlew build # Example for Gradle; adjust for your build tool
+
+      # Archive the build output
+      - name: Archive build artifacts
+        run: |
+          mkdir -p release
+          cp build/prism-runner release/ # Replace with your actual build output path
+
+      # Upload artifacts to the workflow for debugging or sharing
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: release/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Download the build artifacts
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: release/
+
+      # Create or update a GitHub release
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/* # Upload all files in the release directory
