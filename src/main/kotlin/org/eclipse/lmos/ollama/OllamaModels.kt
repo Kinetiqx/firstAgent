@@ -4,10 +4,12 @@
 
 package org.eclipse.lmos.ollama
 
+import io.quarkus.runtime.annotations.RegisterForReflection
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@RegisterForReflection
 data class ChatRequest(
     val model: String,
     val messages: List<ChatMessage>,
@@ -17,6 +19,7 @@ data class ChatRequest(
 )
 
 @Serializable
+
 data class ChatMessage(
     val role: String,
     val content: String,

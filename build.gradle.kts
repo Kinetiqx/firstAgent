@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.allopen") version "2.0.21"
-    kotlin("plugin.serialization") version "2.0.21" apply false
+    kotlin("plugin.serialization") version "2.0.21"
 
     id("io.quarkus")
 }
@@ -71,6 +71,11 @@ kotlin {
         javaParameters = true
     }
 }
+
+quarkus {
+    finalName = "prismx"
+}
+
 
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
