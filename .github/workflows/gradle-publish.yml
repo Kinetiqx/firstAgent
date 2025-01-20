@@ -28,7 +28,7 @@ jobs:
       - name: Archive build artifacts
         run: |
           mkdir -p release
-          cp build/prism-runner release/ # Replace with your actual build output path
+          cp build/prismx-runner release/ # Replace with your actual build output path
 
       # Upload artifacts to the workflow for debugging or sharing
       - name: Upload artifacts
