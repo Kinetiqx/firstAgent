@@ -14,4 +14,4 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@v4.2.1
       - name: Build native executable and upload it as an artifact
-        uses: maxday/quarkus-native-build-docker-action@1
+        uses: maxday/quarkus-native-build-docker-action@13bf5c4ae6942143cf43a5663a6c7f847ac3163c
