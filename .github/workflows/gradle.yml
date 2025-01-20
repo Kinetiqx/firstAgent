@@ -29,4 +29,4 @@ jobs:
           java --version
           native-image --version
       - name: Build Native
-        run: gradlew build -Dquarkus.native.enabled=true
+        run: ./gradlew build -Dquarkus.native.enabled=true
