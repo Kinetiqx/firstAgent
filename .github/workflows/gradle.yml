@@ -22,11 +22,5 @@ jobs:
         with:
           java-version: '21'
           distribution: 'graalvm-community'
-      - name: Example step
-        run: |
-          echo "GRAALVM_HOME: $GRAALVM_HOME"
-          echo "JAVA_HOME: $JAVA_HOME"
-          java --version
-          native-image --version
       - name: Build Native
         run: ./gradlew build -Dquarkus.native.enabled=true

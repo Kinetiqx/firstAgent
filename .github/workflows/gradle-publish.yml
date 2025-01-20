@@ -6,23 +6,22 @@ on:
       - 'v*' # Trigger on version tags like v1.0.0
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # Use macos-latest for macOS apps or windows-latest for Windows apps.
-
+  verify:
+    runs-on: ubuntu-latest
     steps:
-      # Check out the code
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4.2.1
 
-      # Set up JDK if needed (for Gradle-based apps)
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21' # Update based on your project needs
-          distribution: 'temurin'
-          cache: 'gradle'
-      # Build the application
-      - name: Build application
+          java-version: '21'
+          distribution: 'graalvm-community'
+      - name: Build Native
         run: ./gradlew build -Dquarkus.native.enabled=true
 
       # Archive the build output
