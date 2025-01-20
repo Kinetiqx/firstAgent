@@ -23,8 +23,7 @@ jobs:
           cache: 'gradle'
       # Build the application
       - name: Build application
-        run: |
-          ./gradlew build # Example for Gradle; adjust for your build tool
+        run: ./gradlew build -Dquarkus.native.enabled=true
 
       # Archive the build output
       - name: Archive build artifacts
