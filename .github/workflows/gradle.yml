@@ -59,5 +59,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: release/* # Upload all files in the release directory
-          token: ${{ secrets.GIT_CR_PAT }}
 
