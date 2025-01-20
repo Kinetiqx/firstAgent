@@ -24,3 +24,40 @@ jobs:
           distribution: 'graalvm-community'
       - name: Build Native
         run: ./gradlew build -Dquarkus.native.enabled=true
+
+      # Archive the build output
+      - name: Archive build artifacts
+        run: |
+          mkdir -p release
+          cp build/prismx-runner release/ # Replace with your actual build output path
+
+      # Upload artifacts to the workflow for debugging or sharing
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: release/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Download the build artifacts
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: release/
+
+      # Create or update a GitHub release
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/* # Upload all files in the release directory
+          token: {{secrets.GIT_CR_PAT}}
+
