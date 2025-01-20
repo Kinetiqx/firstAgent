@@ -58,5 +58,5 @@ jobs:
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: release/* # Upload all files in the release directory
+          files: release/prismx-runner # Upload all files in the release directory
 
