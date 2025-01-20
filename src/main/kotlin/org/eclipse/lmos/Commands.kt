@@ -2,12 +2,9 @@ package org.eclipse.lmos
 
 
 import kotlinx.coroutines.runBlocking
-import org.eclipse.lmos.arc.agents.conversation.SystemMessage
-import org.eclipse.lmos.arc.agents.conversation.UserMessage
-import org.eclipse.lmos.arc.agents.functions.*
-import org.eclipse.lmos.arc.client.ollama.OllamaClient
-import org.eclipse.lmos.arc.client.ollama.OllamaClientConfig
-import org.eclipse.lmos.arc.core.result
+import org.eclipse.lmos.ollama.ChatMessage
+import org.eclipse.lmos.ollama.OllamaClient
+import org.eclipse.lmos.ollama.OllamaClientConfig
 import picocli.CommandLine
 import picocli.CommandLine.*
 import picocli.CommandLine.Model.CommandSpec
@@ -16,48 +13,48 @@ import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
 
-val functions = object: LLMFunction {
-    override val description: String
-        get() = "Executes kubernetes command and returns result"
-    override val group: String?
-        get() = "K8s"
-    override val isSensitive: Boolean
-        get() = false
-    override val name: String
-        get() = "execK8Command"
-    override val parameters: ParametersSchema
-        get() = ParametersSchema(
-            required = listOf("command"),
-            parameters = listOf(
-                ParameterSchema(
-                    name = "command",
-                    description = "Kubernetes command",
-                    type = ParameterType(schemaType = "string"),
-                    enum = listOf()
-                )
-            )
-        )
-
-    override suspend fun execute(input: Map<String, Any?>): org.eclipse.lmos.arc.core.Result<String, LLMFunctionException> = result<String, LLMFunctionException> {
-        val command = input["command"].toString()
-        println("Executing command: $input")
-        // Create and start the process
-        val process = ProcessBuilder(command.split(" "))
-            .redirectErrorStream(true)
-            .start()
-
-        // Capture the output
-        val response = process.inputStream.bufferedReader().use(BufferedReader::readText).also {
-            process.waitFor() // Wait for the process to complete
-        }
-
-        println("Command result: $response")
-
-        response
-    }
-
-
-}
+//val functions = object: LLMFunction {
+//    override val description: String
+//        get() = "Executes kubernetes command and returns result"
+//    override val group: String?
+//        get() = "K8s"
+//    override val isSensitive: Boolean
+//        get() = false
+//    override val name: String
+//        get() = "execK8Command"
+//    override val parameters: ParametersSchema
+//        get() = ParametersSchema(
+//            required = listOf("command"),
+//            parameters = listOf(
+//                ParameterSchema(
+//                    name = "command",
+//                    description = "Kubernetes command",
+//                    type = ParameterType(schemaType = "string"),
+//                    enum = listOf()
+//                )
+//            )
+//        )
+//
+//    override suspend fun execute(input: Map<String, Any?>): org.eclipse.lmos.arc.core.Result<String, LLMFunctionException> = result<String, LLMFunctionException> {
+//        val command = input["command"].toString()
+//        println("Executing command: $input")
+//        // Create and start the process
+//        val process = ProcessBuilder(command.split(" "))
+//            .redirectErrorStream(true)
+//            .start()
+//
+//        // Capture the output
+//        val response = process.inputStream.bufferedReader().use(BufferedReader::readText).also {
+//            process.waitFor() // Wait for the process to complete
+//        }
+//
+//        println("Command result: $response")
+//
+//        response
+//    }
+//
+//
+//}
 
 @Command(
     name = "sw",
@@ -134,8 +131,7 @@ class SwaCLIOptions: Callable<Int> {
         runBlocking {
             println("Executing $query")
             println(llmClient.complete(
-                listOf(SystemMessage(prompt1()), UserMessage("hi")),
-                functions = listOf(functions),
+                listOf(ChatMessage(role = "system", prompt1()), ChatMessage(role = "user", "hi")),
             ))
         }
     }

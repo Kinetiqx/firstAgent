@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.allopen") version "2.0.21"
+    kotlin("plugin.serialization") version "2.0.21" apply false
 
     id("io.quarkus")
 }
@@ -23,21 +24,30 @@ dependencies {
     implementation("io.quarkus:quarkus-kotlin")
 
     implementation("io.quarkus:quarkus-picocli")
-    implementation("io.quarkus:quarkus-arc")
 
 
     val arcVersion = "0.1.22-SNAPSHOT"
 
-    implementation("org.eclipse.lmos:arc-agents:$arcVersion")
-    implementation("org.eclipse.lmos:arc-result:$arcVersion")
-    implementation("org.eclipse.lmos:arc-ollama-client:$arcVersion")
+//    implementation("org.eclipse.lmos:arc-agents:$arcVersion")
+//    implementation("org.eclipse.lmos:arc-result:$arcVersion")
+//    implementation("org.eclipse.lmos:arc-ollama-client:$arcVersion")
 //    implementation("org.eclipse.lmos:arc-openai-client:$arcVersion")
-    implementation("io.quarkiverse.langchain4j:quarkus-langchain4j-openai:0.23.3")
+//    implementation("io.quarkiverse.langchain4j:quarkus-langchain4j-openai:0.23.3")
 
-    implementation("com.openai:openai-java:0.8.0")
+//    implementation("com.openai:openai-java:0.8.0")
+
+    val ktorVersion = "2.3.13"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
 
 
     testImplementation("io.quarkus:quarkus-junit5")
+
+
 }
 
 group = "org.eclipse.lmos"
