@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2025 Deutsche Telekom AG and others
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Java CI with Gradle
+
+on: [ push ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4.2.1
