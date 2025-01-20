@@ -15,5 +15,3 @@ jobs:
         uses: gradle/actions/wrapper-validation@v4.2.1
       - name: Build native executable and upload it as an artifact
         uses: maxday/quarkus-native-build-docker-action@1
-          outputName: prism
-          dockerfilePath: src/main/docker/Dockerfile.native
