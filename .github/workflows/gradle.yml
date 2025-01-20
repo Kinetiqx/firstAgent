@@ -59,4 +59,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: release/prismx-runner # Upload all files in the release directory
+          token: ${{ secrets.GITHUB_TOKEN }}
 
