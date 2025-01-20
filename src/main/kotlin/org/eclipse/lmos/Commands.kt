@@ -1,15 +1,12 @@
 package org.eclipse.lmos
 
 
-import com.openai.client.okhttp.OpenAIOkHttpClientAsync
 import kotlinx.coroutines.runBlocking
 import org.eclipse.lmos.arc.agents.conversation.SystemMessage
 import org.eclipse.lmos.arc.agents.conversation.UserMessage
 import org.eclipse.lmos.arc.agents.functions.*
 import org.eclipse.lmos.arc.client.ollama.OllamaClient
 import org.eclipse.lmos.arc.client.ollama.OllamaClientConfig
-import org.eclipse.lmos.arc.client.openai.OpenAINativeClient
-import org.eclipse.lmos.arc.client.openai.OpenAINativeClientConfig
 import org.eclipse.lmos.arc.core.result
 import picocli.CommandLine
 import picocli.CommandLine.*
@@ -82,13 +79,13 @@ class SwaCLIOptions: Callable<Int> {
 
         val key = "dummy"
 
-        val llmClient = OpenAINativeClient(
-            config = OpenAINativeClientConfig("gpt-4o-mini", "https://api.openai.com/v1/chat", key),
-            client = OpenAIOkHttpClientAsync.builder()
-                .apiKey(key)
-                .build(),
-            eventHandler = null,
-        )
+//        val llmClient = OpenAINativeClient(
+//            config = OpenAINativeClientConfig("gpt-4o-mini", "https://api.openai.com/v1/chat", key),
+//            client = OpenAIOkHttpClientAsync.builder()
+//                .apiKey(key)
+//                .build(),
+//            eventHandler = null,
+//        )
 
                 println("Welcome to ARC-CLI! Type your query and press Enter. Type '/end' to exit.")
                 var continueSession = true
@@ -123,15 +120,15 @@ class SwaCLIOptions: Callable<Int> {
     }
 
 
-    private fun processInput(query: String, llmClient: OpenAINativeClient) {
-        runBlocking {
-            println("Executing OpenAINativeClient: $query")
-            println(llmClient.complete(
-                listOf(SystemMessage(prompt1()), UserMessage(query)),
-                functions = listOf(functions),
-            ))
-        }
-    }
+//    private fun processInput(query: String, llmClient: OpenAINativeClient) {
+//        runBlocking {
+//            println("Executing OpenAINativeClient: $query")
+//            println(llmClient.complete(
+//                listOf(SystemMessage(prompt1()), UserMessage(query)),
+//                functions = listOf(functions),
+//            ))
+//        }
+//    }
 
     private fun processInput(query: String, llmClient: OllamaClient) {
         runBlocking {

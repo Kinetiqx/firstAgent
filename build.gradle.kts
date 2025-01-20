@@ -31,7 +31,8 @@ dependencies {
     implementation("org.eclipse.lmos:arc-agents:$arcVersion")
     implementation("org.eclipse.lmos:arc-result:$arcVersion")
     implementation("org.eclipse.lmos:arc-ollama-client:$arcVersion")
-    implementation("org.eclipse.lmos:arc-openai-client:$arcVersion")
+//    implementation("org.eclipse.lmos:arc-openai-client:$arcVersion")
+    implementation("io.quarkiverse.langchain4j:quarkus-langchain4j-openai:0.23.3")
 
     implementation("com.openai:openai-java:0.8.0")
 
