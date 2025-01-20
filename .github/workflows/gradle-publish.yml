@@ -59,4 +59,6 @@ jobs:
         with:
           files: release/prismx-runner # Upload all files in the release directory
           token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
