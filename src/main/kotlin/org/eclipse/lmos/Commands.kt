@@ -72,7 +72,7 @@ class SwaCLIOptions: Callable<Int> {
     override fun call(): Int {
         searchQuery = "what all pods are failing in lmos namespace"
 //        searchQuery = promptQuery()
-        val ollamaClient = OllamaClient(OllamaClientConfig(modelName = "nexusraven:13b", url = "http://localhost:11434", toolSupported = true))
+        val ollamaClient = OllamaClient(OllamaClientConfig(modelName = "phi4:latest", url = "http://localhost:11434", toolSupported = true))
 
         val key = "dummy"
 
@@ -84,7 +84,7 @@ class SwaCLIOptions: Callable<Int> {
 //            eventHandler = null,
 //        )
 
-                println("Welcome to ARC-CLI! Type your query and press Enter. Type '/end' to exit.")
+                println("Welcome to First Lmos Agent! Type your query and press Enter. Type '/end' to exit.")
                 var continueSession = true
                 while (continueSession) {
                     print("You: ")

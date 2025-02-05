@@ -73,7 +73,7 @@ kotlin {
 }
 
 quarkus {
-    finalName = "prismx"
+    finalName = "firstAgent"
 }
 
 
